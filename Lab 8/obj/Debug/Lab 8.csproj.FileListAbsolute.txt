@@ -1,0 +1,7 @@
+C:\git\Lab 8\Lab 8\bin\Debug\Lab 8.exe.config
+C:\git\Lab 8\Lab 8\bin\Debug\Lab 8.exe
+C:\git\Lab 8\Lab 8\bin\Debug\Lab 8.pdb
+C:\git\Lab 8\Lab 8\obj\Debug\Lab 8.csprojAssemblyReference.cache
+C:\git\Lab 8\Lab 8\obj\Debug\Lab 8.csproj.CoreCompileInputs.cache
+C:\git\Lab 8\Lab 8\obj\Debug\Lab 8.exe
+C:\git\Lab 8\Lab 8\obj\Debug\Lab 8.pdb
