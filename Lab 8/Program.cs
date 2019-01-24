@@ -8,16 +8,10 @@ namespace Lab_8
 {
     class Program
     {
-        static int input;
-        static string peep;
-        static string home;
-        static string fav;
-
         static void Main(string[] args)
         {
-            //People List
-            List<string> people = new List<string>()
-            { "Steve", "Joe", "Kelly", "Slick", "Brad","Megan","Kent","Rick","James","Sabrina" };
+            //People Array
+            string[] people = { "Steve", "Joe", "Kelly", "Slick", "Brad", "Megan", "Kent", "Rick", "James", "Sabrina" };
 
             //Hometown List
             List<string> hometown = new List<string>()
@@ -38,95 +32,107 @@ namespace Lab_8
                     counter++;
                 }
 
-  
                 bool valid = false;
-                while (valid == false)
+                // Adding counter to exit from loop if too many errors
+                int retry = 0;
+                while (valid != true && retry < 3)
                 {
                     try
                     {
-                        Console.Write("Enter a number (1-" + people.Count + "): ");
-                        int.TryParse(Console.ReadLine(), out int input);
+                        Console.Write("\nEnter a number (1-" + people.Length + "): ");
+                        int input = int.Parse(Console.ReadLine());
 
                         //Storing input for easier calling later
                         string peep = people[input - 1];
                         string home = hometown[input - 1];
                         string fav = food[input - 1];
 
-                        Console.WriteLine("Excelent choice, you chose " + peep);
-                        Console.WriteLine("Would you like to know more about " + peep + "'s hometown or their favorite food?");
-                        
-
+                        Console.WriteLine("\nExcelent choice, you chose " + peep);
+                        Console.WriteLine("\nWould you like to know more about " + peep + "'s hometown or their favorite food?");
+                        retry = 0;
                         bool run2 = true;
-                        while (run2 == true)
+                        while (run2 == true && retry < 3)
                         {
-                            Console.Write("Enter 'home' or 'food': ");
+                            Console.Write("\nEnter 'home' or 'food': ");
                             string answer = Console.ReadLine().ToLower();
 
                             if (answer == "home")
                             {
-                                Console.WriteLine(peep + " is from " + home);
+                                Console.WriteLine("\n" + peep + " is from " + home);
                                 run2 = false;
+                                valid = true;
                             }
                             else if (answer == "food")
                             {
-                                Console.WriteLine(peep + "'s favorite food is " + fav);
+                                Console.WriteLine("\n" + peep + "'s favorite food is " + fav);
                                 run2 = false;
+                                valid = true;
                             }
 
                             else
                             {
-                                Console.WriteLine("Invalid Response, Try Again!");
+                                Console.WriteLine("\nInvalid Response, Try Again!");
+                                retry++;
                                 run2 = true;
+                                valid = true;
                             }
                         }
                     }
+                    // Catching Exceptions Printing and Looping back to try again
                     catch (IndexOutOfRangeException e)
                     {
                         Console.WriteLine(e.StackTrace);
-                        Console.WriteLine("Not valid, Try again");
+                        Console.WriteLine("\n" + e.Message + "\n");
+                        retry++;
                         valid = false;
                     }
                     catch (FormatException e1)
                     {
                         Console.WriteLine(e1.StackTrace);
-                        Console.WriteLine("Learn to format");
+                        Console.WriteLine("\n" + e1.Message + "\n");
+                        retry++;
                         valid = false;
                     }
                     catch (Exception e2)
                     {
                         Console.WriteLine(e2.StackTrace);
                         Console.WriteLine("You're not doing it right!");
+                        retry++;
                         valid = false;
                     }
-                    valid = true;
                 }
                 bool run = true;
                 while (run == true)
                 {
-                    Console.Write("Would you like to know more?\nEnter (yes or no): ");
-                    string again = Console.ReadLine().ToLower();
-                    if (again != "yes" && again != "no")
+                    if (retry >= 3)
                     {
-                        Console.WriteLine("I'm sorry I didn't catch that, try again");
-                        run = true;
-                        cont = false;
+                        Console.WriteLine("\nMaximum number of attempts reached");
                     }
-                    else if (again == "no")
+
+                    Console.Write("\nWould you like to know more?\n\nEnter (yes or no): ");
+                    string again = Console.ReadLine().ToLower();
+
+                    if (again == "no" || again == "n" || again == "exit")
                     {
-                        Console.WriteLine("Have a great day!");
+                        Console.WriteLine("\nHave a great day!");
                         run = false;
                         cont = false;
                     }
-                    else
+                    else if (again == "yes" || again == "y")
                     {
                         Console.Clear();
                         run = false;
                         cont = true;
                     }
-
+                    else if (again != "yes" && again != "no")
+                    {
+                        Console.WriteLine("\nI'm sorry I didn't catch that, try again");
+                        run = true;
+                        cont = false;
+                    }
                 }
             }
-            Console.WriteLine("Press any key to exit");
+            Console.WriteLine("\nPress any key to exit");
             Console.ReadKey();
         }
     }
